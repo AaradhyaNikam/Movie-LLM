@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Expert AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .chat-box { height: 70vh; overflow-y: auto; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+    <div class="max-w-3xl mx-auto py-10 px-4">
+        <h1 class="text-4xl font-bold text-center mb-2">🎬 Movie Expert</h1>
+        <p class="text-gray-400 text-center mb-8">Powered by FAISS & Groq Llama 3</p>
+
+        <div id="chat-container" class="chat-box bg-gray-800 rounded-lg p-6 mb-4 space-y-4 shadow-xl">
+            <div class="bg-blue-600 self-start p-3 rounded-lg max-w-[80%]">
+                Hello! 🎥 Ask me about any movie.
+            </div>
+        </div>
+
+        <div class="flex gap-2">
+            <input type="text" id="user-input" placeholder="Ex: Inception..." 
+                   class="flex-1 p-3 rounded-lg bg-gray-700 border-none focus:ring-2 focus:ring-blue-500 outline-none">
+            <button onclick="sendQuery()" id="send-btn" 
+                    class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-bold transition">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendQuery() {
+            const input = document.getElementById('user-input');
+            const container = document.getElementById('chat-container');
+            const query = input.value.trim();
+            if (!query) return;
+
+            // Append User Message
+            container.innerHTML += `<div class="bg-gray-700 self-end p-3 rounded-lg ml-auto max-w-[80%] text-right">${query}</div>`;
+            input.value = '';
+            
+            // Show Loading
+            const loadingId = "loading-" + Date.now();
+            container.innerHTML += `<div id="${loadingId}" class="italic text-gray-400">🔍 Searching...</div>`;
+            container.scrollTop = container.scrollHeight;
+
+            const response = await fetch('/ask', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({query: query})
+            });
+
+            const data = await response.json();
+            document.getElementById(loadingId).remove();
+
+            // Append Bot Message
+            container.innerHTML += `<div class="bg-blue-600 self-start p-3 rounded-lg max-w-[80%]">${data.response || data.error}</div>`;
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+</body>
+</html>

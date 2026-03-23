@@ -1,0 +1,6 @@
+flask
+langchain
+langchain-community
+langchain-cohere
+langchain-groq
+faiss-cpu
