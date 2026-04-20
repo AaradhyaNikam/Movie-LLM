@@ -1,12 +1,11 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 import time
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_cohere import CohereEmbeddings
-
-# Paste your Cohere Trial Key here
-os.environ["COHERE_API_KEY"] = "COHERE_API_KEY"
 
 PDF_FILES = ["Movies_A-F.pdf", "Movies_G-L.pdf", "Movies_M-R.pdf", "Movies_S-Z.pdf"]
 VECTORSTORE_PATH = "faiss_index_movies"

@@ -4,3 +4,7 @@ langchain-community
 langchain-cohere
 langchain-groq
 faiss-cpu
+Flask-SQLAlchemy
+Flask-Login
+psycopg2-binary
+python-dotenv

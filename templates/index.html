@@ -11,6 +11,16 @@
 </head>
 <body class="bg-gray-900 text-white font-sans">
     <div class="max-w-3xl mx-auto py-10 px-4">
+        <div class="flex justify-end mb-4 space-x-4 text-sm font-medium">
+            {% if current_user.is_authenticated %}
+                <span class="text-gray-400">Welcome, {{ current_user.username }}</span>
+                <a href="/logout" class="text-blue-400 hover:text-blue-300">Logout</a>
+            {% else %}
+                <span class="text-gray-500">Guest mode (2 searches max)</span>
+                <a href="/login" class="text-blue-400 hover:text-blue-300">Login</a>
+                <a href="/signup" class="text-blue-400 hover:text-blue-300">Sign Up</a>
+            {% endif %}
+        </div>
         <h1 class="text-4xl font-bold text-center mb-2">🎬 Movie Expert</h1>
         <p class="text-gray-400 text-center mb-8">Powered by FAISS & Groq Llama 3</p>
 
@@ -26,6 +36,19 @@
             <button onclick="sendQuery()" id="send-btn" 
                     class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-bold transition">Send</button>
         </div>
+
+        {% if current_user.is_authenticated and recent_searches %}
+        <div class="mt-8 bg-gray-800/50 p-4 rounded-lg border border-gray-700">
+            <h3 class="text-sm font-bold text-gray-300 mb-2 uppercase tracking-wide">Your Recent Searches</h3>
+            <div class="flex flex-wrap gap-2">
+                {% for s in recent_searches %}
+                <span class="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm cursor-pointer hover:bg-gray-600 transition" onclick="document.getElementById('user-input').value='{{ s.query }}'; sendQuery() ">
+                    {{ s.query }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
     </div>
 
     <script>
@@ -54,7 +77,8 @@
             document.getElementById(loadingId).remove();
 
             // Append Bot Message
-            container.innerHTML += `<div class="bg-blue-600 self-start p-3 rounded-lg max-w-[80%]">${data.response || data.error}</div>`;
+            const msgClass = data.error ? "bg-red-500 border border-red-400" : "bg-blue-600";
+            container.innerHTML += `<div class="${msgClass} self-start p-3 rounded-lg max-w-[80%]">${data.response || data.error}</div>`;
             container.scrollTop = container.scrollHeight;
         }
     </script>
