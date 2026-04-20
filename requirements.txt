@@ -4,7 +4,11 @@ langchain-community
 langchain-cohere
 langchain-groq
 faiss-cpu
+<<<<<<< HEAD
 Flask-SQLAlchemy
 Flask-Login
 psycopg2-binary
 python-dotenv
+=======
+gunicorn
+>>>>>>> 298139ed34825c0b413fc3ef538366bd6781f750
