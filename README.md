@@ -1,137 +1,69 @@
 # 🎬 Movie Bot (Groq Hybrid Edition)
 
-An **AI-powered Movie Expert App** built using **Streamlit + LangChain**, featuring a **Hybrid RAG Architecture**:
+[![Live Demo](https://img.shields.io/badge/Live_Demo-View_on_Render-success?style=for-the-badge)](https://movie-llm.onrender.com)
 
-- 🔍 **Local Embeddings (FAISS + HuggingFace)** for unlimited, fast search  
-- ⚡ **Groq LLaMA-3.1** for ultra-fast and reliable AI responses  
-
-This design avoids API rate limits and model deprecation issues while remaining cloud-deployable.
+An **AI-powered Movie Expert App** featuring a **Hybrid RAG Architecture** that combines local embeddings with cloud-based LLM inference to bypass API rate limits and model deprecation issues.
 
 ---
 
-## 🚀 Features
-
-- 📄 Loads movie data from multiple PDF files (A–Z split)
-- 🧠 Local embeddings (CPU-based, unlimited usage)
-- ⚡ Groq-powered LLaMA-3.1 inference
-- 💬 Chat-style conversational UI
-- ♻️ Cached vector store for fast reloads
-- ☁️ Works locally & on Streamlit Cloud
+## 💡 Problem Statement
+Standard LLM wrappers often suffer from strict API rate limits and high latency when searching through large, custom datasets. Movie Bot solves this by using local, CPU-based embeddings for unlimited, free vector search, while offloading the heavy text generation to Groq's ultra-fast LLaMA-3.1 model. 
 
 ---
 
-## 🏗️ Tech Stack
+## 🚀 Key Features & Architecture
+**Data Flow:** `PDF Documents (A-Z)` ➔ `Text Splitter` ➔ `HuggingFace Local Embeddings` ➔ `FAISS Vector Store` ➔ `Groq LLaMA-3.1 Inference` ➔ `Streamlit UI`
 
-- **Frontend**: Streamlit  
-- **LLM Provider**: Groq  
-- **Model**: `llama-3.1-8b-instant`  
-- **Embeddings**: HuggingFace `all-MiniLM-L6-v2`  
-- **Vector DB**: FAISS  
-- **Framework**: LangChain  
-
----
-
-## 📁 Project Structure
-
-```
-movie-bot/
-│
-├── app.py
-├── Movies_A-F.pdf
-├── Movies_G-L.pdf
-├── Movies_M-R.pdf
-├── Movies_S-Z.pdf
-├── requirements.txt
-└── README.md
-```
+* **Hybrid RAG Engine:** Leverages local HuggingFace embeddings (`all-MiniLM-L6-v2`) for cost-free search and Groq for high-speed generation.
+* **Cached Vector Store:** Eliminates the need to rebuild embeddings on every reload, ensuring rapid application start times.
+* **Scalable Document Ingestion:** Capable of loading and processing massive movie datasets split across multiple PDF files.
+* **Cloud & Local Flexibility:** Designed to run seamlessly in a local environment or deployed via Render.
 
 ---
 
-## 📦 Installation
+## 📸 Screenshots
 
-### 1️⃣ Clone the Repository
-```bash
-git clone https://github.com/your-username/movie-bot.git
+### Login
+![Login](images/Login.png)
+
+### Signup
+![Signup](images/Signup.png)
+
+### Model Output & Chat Interface
+![Output](images/Output.png)
+
+---
+
+## 🛠️ Tech Stack
+**Language:** Python 3.12+  
+**LLM & Inference:** Groq (`llama-3.1-8b-instant`), LLaMA-3.1  
+**RAG Framework:** LangChain, HuggingFace, FAISS  
+**Frontend & Deployment:** Streamlit, Render  
+
+---
+
+## ⚙️ Local Setup & Run
+
+It is recommended to run this project in a virtual environment using **Python 3.12.x**.
+
+bash
+# 1. Clone the repository
+git clone [https://github.com/your-username/movie-bot.git](https://github.com/your-username/movie-bot.git)
 cd movie-bot
-```
 
-### 2️⃣ Create Virtual Environment
-```bash
+# 2. Create and activate a virtual environment
 python -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
-```
+source venv/bin/activate   # On Windows use: venv\Scripts\activate
 
-### 3️⃣ Install Dependencies
-```bash
+# 3. Install dependencies
 pip install -r requirements.txt
-```
 
----
-
-## 🔑 Groq API Key Setup
-
-### Option 1: Streamlit Sidebar (Local)
-Paste your Groq API key directly in the sidebar.
-
-### Option 2: Environment Variable
-```bash
-export GROQ_API_KEY="your_api_key"
-```
-
-### Option 3: Streamlit Cloud
-Add this to **Secrets**:
-```
-GROQ_API_KEY = "your_api_key"
-```
-
-👉 Get a free key: https://console.groq.com/keys
-
----
-
-## ▶️ Run the App
-
-```bash
+# 4. Launch the application
 streamlit run app.py
-```
 
 ---
 
-## 💡 How It Works
+👨‍💻 Author
+Aaradhya Aashish Nikam 2nd-Year B.Tech Student, D.Y. Patil Engineering College, Pune * LinkedIn: www.linkedin.com/in/aaradhya-nikam-02a69b32a
 
-1. Movie PDFs are loaded and split into chunks  
-2. Local embeddings are generated using HuggingFace  
-3. FAISS performs similarity search  
-4. Relevant context is sent to Groq LLaMA-3.1  
-5. The model generates a clean movie summary  
-
----
-
-## 🛡️ Why Hybrid Architecture?
-
-| Component | Benefit |
-|--------|--------|
-| Local Embeddings | No API limits, free |
-| FAISS | Fast similarity search |
-| Groq LLaMA-3.1 | Ultra-low latency |
-| Streamlit | Rapid deployment |
-
----
-
-## 🧪 Example Queries
-
-- Inception  
-- Zulu  
-- Futureworld  
-- The Godfather  
-
----
-
-## 📜 License
-
-MIT License
-
----
-
-## 🙌 Author
-
-Built with ❤️ using LangChain, Groq, and Streamlit
+Email: nikamaaradhya97@gmail.com
