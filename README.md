@@ -48,7 +48,7 @@ It is recommended to run this project in a virtual environment using **Python 3.
 
 bash
 # 1. Clone the repository
-git clone [https://github.com/AaradhyaNikam/movie-bot.git](https://github.com/AaradhyaNikam/movie-bot.git)
+git clone [https://github.com/your-username/movie-bot.git](https://github.com/your-username/movie-bot.git)
 cd movie-bot
 
 # 2. Create and activate a virtual environment
